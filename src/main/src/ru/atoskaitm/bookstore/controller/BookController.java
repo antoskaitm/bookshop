@@ -59,11 +59,18 @@ public class BookController {
 		return "books/edit";
 	}
 
-	@RequestMapping("data/{id}")
+	@RequestMapping("books/data/{id}")
 	public String bookData(@PathVariable("id") int id, Model model, HttpSession httpSession) {
 		Book book = this.bookDao.getBookById(id);
 		model.addAttribute("book", book);
 		return "data";
+	}
+
+
+	@ResponseBody
+	@RequestMapping("books/images/{id}")
+	public byte[] bookImage(@PathVariable("id") int id) {
+		return this.bookDao.getBookById(id).getImage();
 	}
 
 	@ModelAttribute("cart")

@@ -6,38 +6,54 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>books</title>
-    <%@ include file="../html_header.jsp"%>
+    <%@ include file="../html_header.jsp" %>
 </head>
 <body>
-<%@ include file="../headers.jsp"%>
+<%@ include file="../headers.jsp" %>
 <div class="container-fluid">
     <div class="row">
-        <%@ include file="../genres.jsp"%>
+        <%@ include file="../genres.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">books list</h1>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
+                        <th>title</th>
+                        <th>authors</th>
+                        <th>description</th>
+                        <th>price</th>
+                        <th></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    </tbody>
+                    <c:if test="${!empty books}">
+                        <tbody>
+                        <c:forEach items="${books}" var="book">
+                            <tr>
+                                <td>
+                                    <a href="/books/data/${book.id}" class="title">
+                                            ${book.bookTitle}<br>
+                                        <img src="/books/images/${book.id}" width="100"/>
+                                    </a>
+                                </td>
+                                <td>${book.bookAuthor}</td>
+                                <td></td>
+                                <td>${book.price}</td>
+                                <td>
+                                    <a class="btn btn-primary"  href="<c:url value='/books/remove/${book.id}'/>">remove</a><br>
+                                    <a class="btn btn-primary"
+                                       href="<c:url value='/books/edit/${book.id}'/>">edit</a><br>
+                                    <a class="btn btn-primary"
+                                       href="<c:url value='/books/add/${book.id}'/>">add</a><br>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </c:if>
                 </table>
             </div>
         </div>
