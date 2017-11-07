@@ -83,7 +83,7 @@ public class BookController {
 	public String bookData(@PathVariable("id") int id, Model model, HttpSession httpSession) {
 		Book book = this.bookDao.getBookById(id);
 		model.addAttribute("book", book);
-		return "data";
+		return "books/info";
 	}
 
 
