@@ -2,6 +2,7 @@ package ru.atoskaitm.bookstore.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,11 +52,14 @@ public class BookDao implements IBookDao {
 	}
 
 	@Transactional
-	public Integer getPageCount(Integer size) {
-		Number  booksCount = (Number)getSession().createCriteria(Book.class)
-				.setProjection(Projections.rowCount())
-				.uniqueResult();
-		return (int) Math.ceil(booksCount.doubleValue()/ size);
+	public Integer getPageCount(Integer pageSize) {
+		Projection rowCount =Projections.rowCount();
+		double  booksCount = ((Number)getSession()
+				.createCriteria(Book.class)
+				.setProjection(rowCount)
+				.uniqueResult())
+				.doubleValue();
+		return (int) Math.ceil(booksCount/ pageSize);
 	}
 
 	private Session getSession() {
