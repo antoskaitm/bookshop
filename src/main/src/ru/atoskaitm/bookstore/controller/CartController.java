@@ -26,14 +26,14 @@ public class CartController {
 		return "cart";
 	}
 
-	@RequestMapping(value = "add/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "cart/add/{id}", method = RequestMethod.GET)
 	public String add(@PathVariable("id") int id, HttpSession httpSession) {
 		Cart cart = (Cart) httpSession.getAttribute("cart");
 		cart.addOneBook(bookDa.getBookById(id));
 		return "redirect:/books";
 	}
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "cart/delete/{id}", method = RequestMethod.GET)
 	public String drop(@PathVariable("id") int id, HttpSession httpSession) {
 		Cart cart = (Cart) httpSession.getAttribute("cart");
 		cart.removeLine(id);

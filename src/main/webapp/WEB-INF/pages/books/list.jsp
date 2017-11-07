@@ -13,7 +13,7 @@
     <%@ include file="../html_header.jsp" %>
 </head>
 <body>
-<%@ include file="../headers.jsp" %>
+<%@ include file="../header.jsp" %>
 <div class="container-fluid">
     <div class="row">
         <%@ include file="../genres.jsp" %>
@@ -44,17 +44,20 @@
                                 <td></td>
                                 <td>${book.price}</td>
                                 <td>
-                                    <a class="btn btn-primary"  href="<c:url value='/books/remove/${book.id}'/>">remove</a><br>
+                                    <a class="btn btn-primary"
+                                       href="<c:url value='/books/remove/${book.id}'/>">remove</a><br>
                                     <a class="btn btn-primary"
                                        href="<c:url value='/books/edit/${book.id}'/>">edit</a><br>
                                     <a class="btn btn-primary"
-                                       href="<c:url value='/books/add/${book.id}'/>">add</a><br>
+                                       href="<c:url value='/cart/add/${book.id}'/>">add</a><br>
                                 </td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </c:if>
                 </table>
+                <a class="btn btn-primary"
+                   href="<c:url value='/books/create'/>">create new</a>
             </div>
         </div>
     </div>

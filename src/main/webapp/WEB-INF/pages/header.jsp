@@ -10,7 +10,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="books/books.jsp">Books</a>
+            <a class="navbar-brand" href="/books">Books</a>
         </div>
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-right" action="logIn" method="post">

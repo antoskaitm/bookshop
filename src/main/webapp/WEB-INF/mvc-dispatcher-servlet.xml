@@ -27,6 +27,10 @@
         <property ref="bookDao" name="bookDao"/>
     </bean>
 
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+        <property name="maxUploadSize" value="20000000"/>
+    </bean>
+
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 </beans>

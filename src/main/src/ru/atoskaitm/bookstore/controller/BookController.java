@@ -8,11 +8,13 @@ import ru.atoskaitm.bookstore.dao.IBookDao;
 import ru.atoskaitm.bookstore.model.Book;
 import ru.atoskaitm.bookstore.model.Cart;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
 @SessionAttributes("cart")
+@MultipartConfig
 public class BookController {
 
 	private IBookDao bookDao;
@@ -27,23 +29,33 @@ public class BookController {
 		return "books/list";
 	}
 
-	@RequestMapping(value = "/books/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/books/save", method = RequestMethod.POST)
 	public String addBook(@ModelAttribute("book") Book book, MultipartFile file, HttpSession session) {
 		try {
-			if (file != null) {
-				book.setImage(file.getBytes());
-			}
+			Book lastBook = (Book) session.getAttribute("lastBook");
+			book.setImage(receiveImage(lastBook, file));
 			if (book.getId() == 0) {
 				this.bookDao.addBook(book);
-			} else if (book.getId() != (Integer) session.getAttribute("lastBookId")) {
-				throw new IllegalStateException();
+			} else if (book.getId() != lastBook.getId()) {
+				throw new IllegalArgumentException();
 			} else {
 				this.bookDao.updateBook(book);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		}catch (IOException ex)
+		{
+			ex.printStackTrace();
 		}
 		return "redirect:/books";
+	}
+
+	private byte[] receiveImage(Book lastBook, MultipartFile file) throws IOException {
+		if (file != null && !file.isEmpty()) {
+			return file.getBytes();
+		} else if (lastBook != null) {
+			return lastBook.getImage();
+		} else {
+			return null;
+		}
 	}
 
 	@RequestMapping("books/remove/{id}")
@@ -52,10 +64,18 @@ public class BookController {
 		return "redirect:/books";
 	}
 
-	@RequestMapping("books/edit/{id}")
+	@RequestMapping(value = {"books/edit/{id}"})
 	public String editBook(@PathVariable("id") int id, Model model, HttpSession session) {
-		model.addAttribute("book", this.bookDao.getBookById(id));
-		session.setAttribute("lastBookId", id);
+		Book book = this.bookDao.getBookById(id);
+		model.addAttribute("book", book);
+		session.setAttribute("lastBook", book);
+		return "books/edit";
+	}
+
+	@RequestMapping(value = "books/create")
+	public String createBook(Model model, HttpSession session) {
+		model.addAttribute("book", new Book());
+		session.setAttribute("lastBookId", null);
 		return "books/edit";
 	}
 
