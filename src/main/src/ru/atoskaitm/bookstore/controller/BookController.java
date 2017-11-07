@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.atoskaitm.bookstore.dao.IBookDao;
 import ru.atoskaitm.bookstore.model.Book;
 import ru.atoskaitm.bookstore.model.Cart;
-
+import org.apache.log4j.Logger;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -16,6 +16,8 @@ import java.io.IOException;
 @SessionAttributes("cart")
 @MultipartConfig
 public class BookController {
+
+	private static final Logger log = Logger.getLogger(BookController.class);
 
 	private IBookDao bookDao;
 	private Integer pageSize;
