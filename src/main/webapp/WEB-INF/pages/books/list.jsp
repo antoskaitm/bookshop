@@ -57,7 +57,13 @@
                     </c:if>
                 </table>
                 <a class="btn btn-primary"
-                   href="/books/create">create new</a>
+                   href="/books/create">create new</a><br>
+                <div>
+                    <c:forEach begin="1" end="${pagesCount}" step="1" var="number">
+                        <a class="btn btn-primary" href="/books/${number-1}">${number}</a>
+                    </c:forEach>
+                </div>
+
             </div>
         </div>
     </div>

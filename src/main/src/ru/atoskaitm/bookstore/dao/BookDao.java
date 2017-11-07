@@ -2,9 +2,10 @@ package ru.atoskaitm.bookstore.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import  ru.atoskaitm.bookstore.model.Book;
+import ru.atoskaitm.bookstore.model.Book;
 
 import java.util.List;
 
@@ -20,19 +21,16 @@ public class BookDao implements IBookDao {
 
 	@Transactional
 	public void addBook(Book book) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(book);
+		getSession().persist(book);
 	}
 
 	@Transactional
 	public void updateBook(Book book) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(book);
-
+		getSession().update(book);
 	}
 
 	public void removeBook(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSession();
 		Book book = (Book) session.load(Book.class, new Integer(id));
 		if (book != null) {
 			session.delete(book);
@@ -41,17 +39,26 @@ public class BookDao implements IBookDao {
 
 	@Transactional
 	public Book getBookById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Book book = (Book) session.load(Book.class, new Integer(id));
+		Book book = (Book) getSession().load(Book.class, new Integer(id));
 		book.getId();
 		return book;
 	}
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<Book> listBooks() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Book> bookList = session.createQuery("from Book").list();
-		return bookList;
+	public List<Book> listBooks(Integer pageNumber, Integer size) {
+		return getSession().createQuery("from Book").setFirstResult(pageNumber * size).setMaxResults(size).list();
+	}
+
+	@Transactional
+	public Integer getPageCount(Integer size) {
+		Number  booksCount = (Number)getSession().createCriteria(Book.class)
+				.setProjection(Projections.rowCount())
+				.uniqueResult();
+		return (int) Math.ceil(booksCount.doubleValue()/ size);
+	}
+
+	private Session getSession() {
+		return this.sessionFactory.getCurrentSession();
 	}
 }

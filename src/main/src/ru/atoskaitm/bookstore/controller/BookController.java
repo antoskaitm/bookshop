@@ -18,16 +18,30 @@ import java.io.IOException;
 public class BookController {
 
 	private IBookDao bookDao;
+	private Integer pageSize;
 
 	public void setBookDao(IBookDao bookDao) {
 		this.bookDao = bookDao;
 	}
 
-	@RequestMapping(value = "books", method = RequestMethod.GET)
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	@RequestMapping(value = {"books"}, method = RequestMethod.GET)
 	public String listBooks(Model model) {
-		model.addAttribute("books", this.bookDao.listBooks());
+		model.addAttribute("books", this.bookDao.listBooks(0, pageSize));
+		model.addAttribute("pagesCount",this.bookDao.getPageCount(pageSize));
 		return "books/list";
 	}
+
+	@RequestMapping(value = {"books/{pageNumber}"}, method = RequestMethod.GET)
+	public String listBooks(Model model, @PathVariable("pageNumber") Integer pageNumber) {
+		model.addAttribute("books", this.bookDao.listBooks(pageNumber, pageSize));
+		model.addAttribute("pagesCount",this.bookDao.getPageCount(pageSize));
+		return "books/list";
+	}
+
 
 	@RequestMapping(value = "/books/save", method = RequestMethod.POST)
 	public String addBook(@ModelAttribute("book") Book book, MultipartFile file, HttpSession session) {
@@ -41,8 +55,7 @@ public class BookController {
 			} else {
 				this.bookDao.updateBook(book);
 			}
-		}catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return "redirect:/books";

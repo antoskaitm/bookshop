@@ -17,6 +17,7 @@
 
     <bean class="ru.atoskaitm.bookstore.controller.BookController" id="bookController">
         <property ref="bookDao" name="bookDao"/>
+        <property name="pageSize" value="2"/>
     </bean>
 
     <bean class="ru.atoskaitm.bookstore.controller.CheckoutController" id="checkoutController">

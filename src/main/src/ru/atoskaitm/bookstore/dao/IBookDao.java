@@ -13,5 +13,7 @@ public interface IBookDao {
 
 	Book getBookById(int id);
 
-	List<Book> listBooks();
+	List<Book> listBooks(Integer pageNumber,Integer size);
+
+	Integer getPageCount(Integer size);
 }
