@@ -22,13 +22,14 @@ public class CheckoutController {
 	@RequestMapping(value = "checkout")
 	public String checkout(Model model) {
 		model.addAttribute("order", new Order());
-		return "checkout";
+		return "cart/checkout";
 	}
 
 	@RequestMapping(value = "checkout", method = RequestMethod.POST)
 	public String saveOrder(@ModelAttribute("order") Order order, HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
 		order.setFrom(cart);
+		order.setGiftWrap(order.getGiftWrap() != null && order.getGiftWrap());
 		orderDao.addOrder(order);
 		cart.clear();
 		return "redirect:/books";

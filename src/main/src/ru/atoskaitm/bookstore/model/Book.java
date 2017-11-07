@@ -23,6 +23,17 @@ public class Book {
 	@Column(name = "book_image")
 	private byte[] image;
 
+	@OneToMany(mappedBy = "book")
+	private Set<OrderLine> orderLines;
+
+	public Set<OrderLine> getOrderLines() {
+		return orderLines;
+	}
+
+	public void setOrderLines(Set<OrderLine> orderLines) {
+		this.orderLines = orderLines;
+	}
+
 	public byte[] getImage() {
 		return image;
 	}

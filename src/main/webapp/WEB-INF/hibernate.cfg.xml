@@ -24,6 +24,8 @@
         <property name="annotatedClasses">
             <list>
                 <value>ru.atoskaitm.bookstore.model.Book</value>
+                <value>ru.atoskaitm.bookstore.model.Order</value>
+                <value>ru.atoskaitm.bookstore.model.OrderLine</value>
             </list>
         </property>
         <property name="hibernateProperties">
