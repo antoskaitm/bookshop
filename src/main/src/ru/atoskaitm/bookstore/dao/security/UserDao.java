@@ -1,15 +1,11 @@
-package ru.atoskaitm.bookstore.dao.sequrity;
+package ru.atoskaitm.bookstore.dao.security;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.atoskaitm.bookstore.model.Book;
-import ru.atoskaitm.bookstore.model.sequrity.User;
+import ru.atoskaitm.bookstore.model.security.User;
 
 @Repository
 public class UserDao implements IUserDao {

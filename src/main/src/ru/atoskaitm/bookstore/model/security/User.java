@@ -1,4 +1,4 @@
-package ru.atoskaitm.bookstore.model.sequrity;
+package ru.atoskaitm.bookstore.model.security;
 
 import javax.persistence.*;
 import java.util.Set;
