@@ -23,7 +23,7 @@ public class CartController {
 	@RequestMapping("cart")
 	public String cart(Model model, HttpSession httpSession) {
 		model.addAttribute("cart", (Cart) httpSession.getAttribute("cart"));
-		return "cart";
+		return "cart/cart";
 	}
 
 	@RequestMapping(value = "cart/add/{id}", method = RequestMethod.GET)
@@ -33,7 +33,7 @@ public class CartController {
 		return "redirect:/books";
 	}
 
-	@RequestMapping(value = "cart/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "cart/remove/{id}", method = RequestMethod.GET)
 	public String drop(@PathVariable("id") int id, HttpSession httpSession) {
 		Cart cart = (Cart) httpSession.getAttribute("cart");
 		cart.removeLine(id);

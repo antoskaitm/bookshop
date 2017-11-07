@@ -17,8 +17,8 @@
                 <input type="text" class="form-control" placeholder="login...">
                 <input type="password" class="form-control" placeholder="password...">
                 <button type="submit" value="log in" class="btn btn-primary"> log in </button>
-                <a href="signIn" class="btn btn-primary">sign up</a>
-                <a href="cart" class="btn btn-primary">${cart.totalQuantity} books in cart</a>
+                <a href="/signIn" class="btn btn-primary">sign up</a>
+                <a href="/cart" class="btn btn-primary">${cart.totalQuantity} books in cart</a>
             </form>
         </div>
     </div>

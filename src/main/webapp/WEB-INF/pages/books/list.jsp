@@ -45,11 +45,11 @@
                                 <td>${book.price}</td>
                                 <td>
                                     <a class="btn btn-primary"
-                                       href="<c:url value='/books/remove/${book.id}'/>">remove</a><br>
+                                       href="/books/remove/${book.id}">remove</a><br>
                                     <a class="btn btn-primary"
-                                       href="<c:url value='/books/edit/${book.id}'/>">edit</a><br>
+                                       href="/books/edit/${book.id}">edit</a><br>
                                     <a class="btn btn-primary"
-                                       href="<c:url value='/cart/add/${book.id}'/>">add</a><br>
+                                       href="/cart/add/${book.id}">add</a><br>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -57,7 +57,7 @@
                     </c:if>
                 </table>
                 <a class="btn btn-primary"
-                   href="<c:url value='/books/create'/>">create new</a>
+                   href="/books/create">create new</a>
             </div>
         </div>
     </div>

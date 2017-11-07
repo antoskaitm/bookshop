@@ -20,7 +20,7 @@ public class Cart {
 		if (!cartLines.containsKey(book.getId())) {
 			CartLine line = new CartLine();
 			line.setBook(book);
-			cartLines.put(book.getId(), new CartLine());
+			cartLines.put(book.getId(), line);
 		}
 		cartLines.get(book.getId()).addOneBook();
 	}
