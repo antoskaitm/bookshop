@@ -1,6 +1,8 @@
 package ru.atoskaitm.bookstore.model.security;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,7 +22,9 @@ public class User {
 	@Transient
 	private String confirmPassword;
 
-	@ManyToMany(mappedBy = "users")
+	@ManyToMany
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 
 	public Integer getId() {
@@ -39,6 +43,10 @@ public class User {
 		return password;
 	}
 
+	public String setPassword(String password) {
+		return this.password=password;
+	}
+
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
@@ -47,11 +55,11 @@ public class User {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Set<Role> getRoles() {
+	public Collection<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRoles(Collection<Role> roles) {
+		this.roles =  new HashSet<>(roles);
 	}
 }
