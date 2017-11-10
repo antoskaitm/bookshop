@@ -32,7 +32,6 @@ public class SecurityService implements ISecurityService {
     }
 
     @Override
-    @Transactional
     public void autoLogin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authenticationToken =

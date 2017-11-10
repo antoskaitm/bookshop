@@ -34,8 +34,19 @@
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <constructor-arg name="strength" value="11"/>
     </bean>
+
+    <bean class="ru.atoskaitm.bookstore.security.SecurityService" name="securityService">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="userDetailsService" ref="userDetailsServiceImpl"/>
+    </bean>
+
     <bean class="ru.atoskaitm.bookstore.security.UserDetailsServiceImpl" name="detailsService">
         <property name="userDao" ref="userDao"/>
     </bean>
 
+    <bean class="ru.atoskaitm.bookstore.security.UserService" name="userService" >
+        <property name="userDao" ref="userDao"/>
+        <property name="roleDao" ref="roleDao"/>
+        <property name="bCryptPasswordEncoder" ref="encoder"/>
+    </bean>
 </beans>
