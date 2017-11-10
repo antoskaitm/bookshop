@@ -15,7 +15,6 @@ public class RoleDao implements IRoleDao {
 	}
 
 	@Override
-	@Transactional
 	public Role getRole(Long id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		return (Role) session.load(Role.class, new Long(id));

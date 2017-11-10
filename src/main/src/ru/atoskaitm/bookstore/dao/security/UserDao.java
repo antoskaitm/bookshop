@@ -10,7 +10,6 @@ import ru.atoskaitm.bookstore.model.security.User;
 @Repository
 public class UserDao implements IUserDao {
 
-    @Autowired(required = true)
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -18,7 +17,6 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    @Transactional
     public User getUser(String username) {
         Session session = sessionFactory.getCurrentSession();
         for (Object user : session.createQuery("from User").list()) {
