@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <import resource="hibernate.cfg.xml"/>
+
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/books/create" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/books/edit/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/cart" access="hasRole('ROLE_USER')"/>
+
+        <security:form-login login-page="/books" default-target-url="/books" authentication-failure-url="/books?error"
+                             username-parameter="username" password-parameter="password"
+        login-processing-url="/security/login"/>
+    </security:http>
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="userDetailsServiceImpl">
+            <security:password-encoder ref="encoder"></security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="userDetailsServiceImpl"
+          class="ru.atoskaitm.bookstore.security.UserDetailsServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="encoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength" value="11"/>
+    </bean>
+    <bean class="ru.atoskaitm.bookstore.security.UserDetailsServiceImpl" name="detailsService">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+</beans>
