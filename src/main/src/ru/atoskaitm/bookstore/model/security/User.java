@@ -47,12 +47,12 @@ public class User {
 		return this.password=password;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
+	public boolean isConfirmedPassword() {
+		return confirmPassword.equals(password);
 	}
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
 	public Collection<Role> getRoles() {

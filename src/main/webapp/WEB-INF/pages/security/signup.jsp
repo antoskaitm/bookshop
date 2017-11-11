@@ -19,29 +19,31 @@
         <%@ include file="../genres.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">sign up</h1>
+            <h2>${error}</h2>
             <div class="table-responsive">
                 <form action="/security/signup" method="post">
-                <table class="table table-striped">
-                    <tbody>
-                    <tr>
-                        <th>login</th>
-                        <th><input type="text" name="username"></th>
-                    </tr>
-                    <tr>
-                        <th>password</th>
-                        <th><input type="password" name="password"></th>
-                    </tr>
-                    <tr>
-                        <th>confirm password</th>
-                        <th><input type="password" name="confirmPassword"></th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                           <input type="submit" title="ok" name="ok" value="ok">
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>login</th>
+                            <th><input type="text" name="username" value="${user.username}"></th>
+                        </tr>
+                        <tr>
+                            <th>password</th>
+                            <th><input type="password" name="password" value="${user.password}"></th>
+                        </tr>
+                        <tr>
+                            <th>confirm password</th>
+                            <th><input type="password" name="confirmPassword" value="${user.confirmPassword}"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <input type="submit" title="ok" name="ok" value="ok">
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
                 </form>
             </div>
         </div>

@@ -18,9 +18,11 @@
     <div class="row">
         <%@ include file="../genres.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">sign up</h1>
+            <h1 class="page-header">log in</h1>
+            <h2>${error}</h2>
             <div class="table-responsive">
                 <form action="/security/login" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <table class="table table-striped">
                         <tbody>
                         <tr>

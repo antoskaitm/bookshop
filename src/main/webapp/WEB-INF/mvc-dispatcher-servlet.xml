@@ -26,6 +26,11 @@
         <property ref="bookDao" name="bookDao"/>
     </bean>
 
+    <bean class="ru.atoskaitm.bookstore.controller.UserController" id="userController">
+        <property name="userService" ref="userService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+
     <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
         <property name="maxUploadSize" value="20000000"/>
     </bean>
